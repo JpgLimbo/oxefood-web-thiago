@@ -1,8 +1,39 @@
+import axios from "axios";
 import React from "react";
 import InputMask from 'react-input-mask';
-import { Button, Container, Divider, Form, Icon, TextArea } from 'semantic-ui-react';
+import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 
 class FormProduto extends React.Component{
+	state = {
+		
+		titulo: null,
+		codigo: null,
+		descricao: null,
+		valorUnitario: null,
+		tempoEntregaMinimo: null,
+		tempoEntregaMaximo: null
+	}
+
+	salvar = () => {
+
+		let produtoRequest = {
+
+			titulo: this.state.titulo,
+			codigo: this.state.codigo,
+			descricao: this.state.descricao,
+			valorUnitario: this.state.valorUnitario,
+			tempoEntregaMinimo: this.state.tempoEntregaMinimo,
+			tempoEntregaMaximo: this.state.tempoEntregaMaximo
+		}
+	
+		axios.post("http://localhost:8082/api/produto", produtoRequest)
+		.then((response) => {
+			console.log('Produto cadastrado com sucesso.')
+		})
+		.catch((error) => {
+			console.log('Erro ao incluir o um produto.')
+		})
+	}
 
     render(){
         return(
@@ -28,6 +59,8 @@ class FormProduto extends React.Component{
 										label='Titulo'
 										maxLength="100"
                                         placeholder="Informe o Titulo do Produto"
+										value={this.state.titulo}
+										onChange={e => this.setState({titulo: e.target.value})}
 									/>
 
 									<Form.Input
@@ -35,6 +68,8 @@ class FormProduto extends React.Component{
                                         fluid
 										label='Código do produto'
                                         placeholder="Informe o Titulo do Produto"
+										value={this.state.codigo}
+										onChange={e => this.setState({codigo: e.target.value})}
                                         >
                                         
 									
@@ -42,12 +77,16 @@ class FormProduto extends React.Component{
                                         
 								</Form.Group>
 								
-                                <Form.Group
-										
-                                        >
+                                <Form.Group>
                                         
-                                        <TextArea placeholder='Informe a Descrição do produto' 
-                                        />
+                                        <Form.TextArea label ="Descrição"
+										 
+										
+										placeholder='Informe a Descrição do produto' 
+                                        width={16}
+										value={this.state.descricao}
+										onChange={e => this.setState({descricao: e.target.value})}/>
+										
 									</Form.Group>
                             
 								<Form.Group>
@@ -57,7 +96,9 @@ class FormProduto extends React.Component{
 										label='Valor Unitário'
                                         width={4}>
 										<InputMask 
-										mask="99,99" /> 
+										mask="99.99" 
+										value={this.state.valorUnitario}
+										onChange={e => this.setState({valorUnitario: e.target.value})}/> 
 									</Form.Input>
 
 									<Form.Input
@@ -65,7 +106,9 @@ class FormProduto extends React.Component{
 										label='Tempo de Entrega Minimo em minutos'
                                         width={9}>
 										<InputMask 
-										mask="99" /> 
+										mask="99" 
+										value={this.state.tempoEntregaMinimo}
+										onChange={e => this.setState({tempoEntregaMinimo: e.target.value})}/> 
 									</Form.Input>
 
                                     <Form.Input
@@ -74,7 +117,9 @@ class FormProduto extends React.Component{
                                         width={6}
                                     >
                                         <InputMask 
-                                            mask="99" 
+                                            mask="99"
+											value={this.state.tempoEntregaMaximo}
+											onChange={e => this.setState({tempoEntregaMaximo: e.target.value})} 
                                             
                                         /> 
                                     </Form.Input>
