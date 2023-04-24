@@ -44,7 +44,7 @@ class FormEntregador extends React.Component{
 			enderecoCidade: this.state.enderecoBairro,
 			enderecoCep: this.state.enderecoCidade,
 			enderecoUf: this.state.enderecoUf,
-			nderecoCompleto: this.state.nderecoCompleto,
+			enderecoCompleto: this.state.enderecoCompleto,
 			ativo: this.state.ativo
 		}
 	
@@ -104,8 +104,8 @@ class FormEntregador extends React.Component{
 										<InputMask 
 										placeholder="x.xxx.xxx"
 										mask="9.999.999" 
-										value={this.state.cpf}
-										onChange={e => this.setState({cpf: e.target.value})}/> 
+										value={this.state.rg}
+										onChange={e => this.setState({rg: e.target.value})}/> 
 										
 									</Form.Input>
 								</Form.Group>
@@ -154,7 +154,7 @@ class FormEntregador extends React.Component{
 										label='Qntd entregas realizadas'
                                         width={4}>
 										<InputMask 
-										mask="9999" 
+										mask="" 
 										value={this.state.qtdEntregasRealizadas}
 										onChange={e => this.setState({qtdEntregasRealizadas: e.target.value})}/> 
 									</Form.Input>
@@ -187,7 +187,7 @@ class FormEntregador extends React.Component{
 										label='Numero'
                                         width={3}>
 										<InputMask 
-										mask="999" 
+										mask="" 
 										value={this.state.enderecoNumero}
 										onChange={e => this.setState({enderecoNumero: e.target.value})}/> 
 									</Form.Input>
@@ -288,9 +288,16 @@ class FormEntregador extends React.Component{
 									</Form.Input>
                                 </Form.Group>
 								
-								<Form.Input>			
-									<div class="ui radio checkbox"><input type="radio"  readonly="" tabindex="0"/><label>Make my profile visible</label></div>
-
+								<Form.Input
+								required
+								label="Ativo?"
+								
+								>			
+									<fieldset value={this.state.ativo}
+									onChange={e => this.setState({ativo: e.target.value})}	>
+									<input type="radio" name = "sn" value={true} /><label>Sim</label>
+									<input type="radio" name = "sn" value={false} /><label>Não</label>
+									</fieldset>
 								</Form.Input>		
 								<Form.Group widths='equal' style={{marginTop: '4%'}}  className='form--empresa-salvar'>
 
