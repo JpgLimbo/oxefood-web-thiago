@@ -152,11 +152,10 @@ class FormEntregador extends React.Component{
                                     <Form.Input
 										fluid
 										label='Qntd entregas realizadas'
-                                        width={4}>
-										<InputMask 
-										mask="" 
+                                        width={4}
 										value={this.state.qtdEntregasRealizadas}
-										onChange={e => this.setState({qtdEntregasRealizadas: e.target.value})}/> 
+										onChange={e => this.setState({qtdEntregasRealizadas: e.target.value})}>
+									
 									</Form.Input>
 
                                     <Form.Input
@@ -185,11 +184,12 @@ class FormEntregador extends React.Component{
 										required
 										fluid
 										label='Numero'
-                                        width={3}>
-										<InputMask 
-										mask="" 
+                                        width={3}
 										value={this.state.enderecoNumero}
-										onChange={e => this.setState({enderecoNumero: e.target.value})}/> 
+										onChange={e => this.setState({enderecoNumero: e.target.value})}>
+										
+										 
+									
 									</Form.Input>
                                 </Form.Group>
 
@@ -290,14 +290,14 @@ class FormEntregador extends React.Component{
 								
 								<Form.Input
 								required
-								label="Ativo?"
+								label="Ativo"
 								
 								>			
-									<fieldset value={this.state.ativo}
-									onChange={e => this.setState({ativo: e.target.value})}	>
+									<div value={this.state.ativo}
+									onChange={e => this.setState({ativo: e.target.value})}>
 									<input type="radio" name = "sn" value={true} /><label>Sim</label>
 									<input type="radio" name = "sn" value={false} /><label>Não</label>
-									</fieldset>
+									</div>
 								</Form.Input>		
 								<Form.Group widths='equal' style={{marginTop: '4%'}}  className='form--empresa-salvar'>
 
