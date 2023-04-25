@@ -41,8 +41,8 @@ class FormEntregador extends React.Component{
 			enderecoRua: this.state.enderecoRua,
 			enderecoNumero: this.state.enderecoNumero,
 			enderecoBairro: this.state.enderecoBairro,
-			enderecoCidade: this.state.enderecoBairro,
-			enderecoCep: this.state.enderecoCidade,
+			enderecoCidade: this.state.enderecoCidade,
+			enderecoCep: this.state.enderecoCep,
 			enderecoUf: this.state.enderecoUf,
 			enderecoCompleto: this.state.enderecoCompleto,
 			ativo: this.state.ativo
