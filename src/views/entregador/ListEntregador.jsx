@@ -70,9 +70,9 @@ render(){
                         </Button>
                         <br/><br/><br/>
                       
-                      <Table color='orange' sortable celled>
+                        <Table color='orange' sortable celled>
 
-                          <Table.Header>
+                            <Table.Header>
                               <Table.Row>
                                   <Table.HeaderCell>Nome</Table.HeaderCell>
                                   <Table.HeaderCell>CPF</Table.HeaderCell>
@@ -89,58 +89,58 @@ render(){
                                   <Table.HeaderCell>Cep</Table.HeaderCell>
                                   <Table.HeaderCell>Uf</Table.HeaderCell>
                                   <Table.HeaderCell>Complemento</Table.HeaderCell>
-                                  <Table.HeaderCell>ativo</Table.HeaderCell>
+                                  
+                                  
                                   <Table.HeaderCell textAlign='center' width={2}>Ações</Table.HeaderCell>
                               </Table.Row>
-                          </Table.Header>
+                            </Table.Header>
                      
-                          <Table.Body>
+                            <Table.Body>
 
-                              { this.state.listaEntregadores.map(entregador => (
+                             { this.state.listaEntregadores.map(entregador => (
 
-                                  <Table.Row>
-                                      <Table.Cell>{entregador.nome}</Table.Cell>
-                                      <Table.Cell>{entregador.cpf}</Table.Cell>
-                                      <Table.Cell>{entregador.rg}</Table.Cell>
-                                      <Table.Cell>{this.formatarData(entregador.dataNascimento)}</Table.Cell>
-                                      <Table.Cell>{entregador.foneCelular}</Table.Cell>
-                                      <Table.Cell>{entregador.foneFixo}</Table.Cell>
-                                      <Table.Cell>{entregador.qtdEntregasRealizadas}</Table.Cell>
-                                      <Table.Cell>{entregador.valorFrete}</Table.Cell>
-                                      <Table.Cell>{entregador.enderecoRua}</Table.Cell>
-                                      <Table.Cell>{entregador.enderecoNumero}</Table.Cell>
-                                      <Table.Cell>{entregador.enderecoBairro}</Table.Cell>
-                                      <Table.Cell>{entregador.enderecoCidade}</Table.Cell>
-                                      <Table.Cell>{entregador.enderecoCep}</Table.Cell>
-                                      <Table.Cell>{entregador.enderecoUf}</Table.Cell>
-                                      <Table.Cell>{entregador.enderecoCompleto}</Table.Cell>
-                                      <Table.Cell>{entregador.ativo}</Table.Cell>
+                                <Table.Row>
+                                    <Table.Cell>{entregador.nome}</Table.Cell>
+                                    <Table.Cell>{entregador.cpf}</Table.Cell>
+                                    <Table.Cell>{entregador.rg}</Table.Cell>
+                                    <Table.Cell>{this.formatarData(entregador.dataNascimento)}</Table.Cell>
+                                    <Table.Cell>{entregador.foneCelular}</Table.Cell>
+                                    <Table.Cell>{entregador.foneFixo}</Table.Cell>
+                                    <Table.Cell>{entregador.qtdEntregasRealizadas}</Table.Cell>
+                                    <Table.Cell>{entregador.valorFrete}</Table.Cell>
+                                    <Table.Cell>{entregador.enderecoRua}</Table.Cell>
+                                    <Table.Cell>{entregador.enderecoNumero}</Table.Cell>
+                                    <Table.Cell>{entregador.enderecoBairro}</Table.Cell>
+                                    <Table.Cell>{entregador.enderecoCidade}</Table.Cell>
+                                    <Table.Cell>{entregador.enderecoCep}</Table.Cell>
+                                    <Table.Cell>{entregador.enderecoUf}</Table.Cell>
+                                    <Table.Cell>{entregador.enderecoCompleto}</Table.Cell>
+                                      
 
-                                      <Table.Cell textAlign='center'>
+                                    <Table.Cell textAlign='center'>
                                          
-                                          <Button
-                                              inverted
-                                              circular
-                                              icon='edit'
-                                              color='blue'
-                                              itle='Clique aqui para editar os dados deste entregador' /> &nbsp;
-                                             <Button
-                                                   inverted
-                                                   circular
-                                                   icon='trash'
-                                                   color='red'
-                                                   title='Clique aqui para remover este entregador' />
+                                        <Button
+                                            inverted
+                                            circular
+                                            icon='edit'
+                                            color='blue'
+                                            itle='Clique aqui para editar os dados deste entregador' /> &nbsp;
+                                        <Button
+                                            inverted
+                                            circular
+                                            icon='trash'
+                                            color='red'
+                                            title='Clique aqui para remover este entregador' />
 
                                         </Table.Cell>
-                                    </Table.Row>
-                                   ))}
-
-                               </Table.Body>
-                           </Table>
-                       </div>
-                   </Container>
-               </div>
-           </div>
+                                </Table.Row>
+                            ))}
+                            </Table.Body>
+                        </Table>
+                    </div>
+                </Container>
+            </div>
+        </div>
        )
    }
 }
