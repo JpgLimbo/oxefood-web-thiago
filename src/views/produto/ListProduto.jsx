@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from "react";
 import { Link } from "react-router-dom";
+import { ENDERECO_API } from '../ultil/Constantes';
 import { Button, Container, Divider, Icon, Table } from 'semantic-ui-react';
 
 class ListProduto extends React.Component{
@@ -18,7 +19,7 @@ class ListProduto extends React.Component{
    }
    carregarLista = () => {
 
-    axios.get("http://localhost:8082/api/produto")
+    axios.get(ENDERECO_API +"api/produto")
     .then((response) => {
        
         this.setState({

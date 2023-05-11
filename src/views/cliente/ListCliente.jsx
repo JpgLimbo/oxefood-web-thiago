@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from "react";
 import { Link } from "react-router-dom";
+import { ENDERECO_API } from '../ultil/Constantes';
 import { Button, Container, Divider, Icon, Table } from 'semantic-ui-react';
 
 class ListCliente extends React.Component{
@@ -18,7 +19,7 @@ class ListCliente extends React.Component{
     }
     carregarLista = () => {
 
-        axios.get("http://localhost:8082/api/cliente")
+        axios.get(ENDERECO_API + "api/cliente")
         .then((response) => {
            
             this.setState({

@@ -2,6 +2,7 @@ import axios from 'axios';
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Divider, Icon, Table } from 'semantic-ui-react';
+import { ENDERECO_API } from '../ultil/Constantes';
 
 class ListEntregador extends React.Component{
 
@@ -18,7 +19,7 @@ class ListEntregador extends React.Component{
     }
    carregarLista = () => {
 
-    axios.get("http://localhost:8082/api/entregador")
+    axios.get(ENDERECO_API + "api/entregador")
     .then((response) => {
        
         this.setState({
@@ -30,6 +31,7 @@ class ListEntregador extends React.Component{
 
     formatarData = (dataParam) => {
 
+        /*
         if (dataParam == null || dataParam == '') {
             return ''
         }
@@ -38,6 +40,9 @@ class ListEntregador extends React.Component{
         let mes = dataParam.substr(5,2);
         let ano = dataParam.substr(0,4);
         let dataFormatada = dia + '/' + mes + '/' + ano;
+        */
+
+       let dataFormatada = dataParam
 
         return dataFormatada
     };
@@ -70,7 +75,7 @@ render(){
                         </Button>
                         <br/><br/><br/>
                       
-                        <Table color='orange' sortable celled>
+                        <Table color='orange' sortable celled style={{marginLeft:'-20%'}}>
 
                             <Table.Header>
                               <Table.Row>
@@ -89,9 +94,10 @@ render(){
                                   <Table.HeaderCell>Cep</Table.HeaderCell>
                                   <Table.HeaderCell>Uf</Table.HeaderCell>
                                   <Table.HeaderCell>Complemento</Table.HeaderCell>
+                                  <Table.HeaderCell>Ativo</Table.HeaderCell>
                                   
                                   
-                                  <Table.HeaderCell textAlign='center' width={2}>Ações</Table.HeaderCell>
+                                  <Table.HeaderCell textAlign='center' width={2} style={{paddingRight:'40px', paddingLeft:'40px'}}>Ações</Table.HeaderCell>
                               </Table.Row>
                             </Table.Header>
                      
@@ -114,17 +120,24 @@ render(){
                                     <Table.Cell>{entregador.enderecoCidade}</Table.Cell>
                                     <Table.Cell>{entregador.enderecoCep}</Table.Cell>
                                     <Table.Cell>{entregador.enderecoUf}</Table.Cell>
-                                    <Table.Cell>{entregador.enderecoCompleto}</Table.Cell>
+                                    <Table.Cell>{entregador.enderecoComplemento}</Table.Cell>
+                                    <Table.Cell>{entregador.ativo}</Table.Cell>
                                       
 
                                     <Table.Cell textAlign='center'>
-                                         
+                                    
+                                    <Button
+                                            inverted
+                                            circular
+                                            icon ="eye icon"
+                                            color='pink'
+                                            title='Visualizar entregadores' /> &nbsp;
                                         <Button
                                             inverted
                                             circular
                                             icon='edit'
                                             color='blue'
-                                            itle='Clique aqui para editar os dados deste entregador' /> &nbsp;
+                                            title='Clique aqui para editar os dados deste entregador' /> &nbsp;
                                         <Button
                                             inverted
                                             circular

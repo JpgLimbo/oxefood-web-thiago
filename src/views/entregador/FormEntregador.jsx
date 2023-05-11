@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import InputMask from 'react-input-mask';
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
+import { ENDERECO_API } from "../ultil/Constantes";
 
 
 class FormEntregador extends React.Component{
@@ -21,7 +22,7 @@ class FormEntregador extends React.Component{
 		enderecoCidade: null,
 		enderecoCep: null,
 		enderecoUf: null,
-		enderecoCompleto: null,
+		enderecoComplemento: null,
 		ativo: null
 
 	}
@@ -44,11 +45,11 @@ class FormEntregador extends React.Component{
 			enderecoCidade: this.state.enderecoCidade,
 			enderecoCep: this.state.enderecoCep,
 			enderecoUf: this.state.enderecoUf,
-			enderecoCompleto: this.state.enderecoCompleto,
+			enderecoComplemento: this.state.enderecoComplemento,
 			ativo: this.state.ativo
 		}
 	
-		axios.post("http://localhost:8082/api/entregador", entregadorRequest)
+		axios.post(ENDERECO_API + "api/entregador", entregadorRequest)
 		.then((response) => {
 			console.log('Entregador cadastrado com sucesso.')
 		})
@@ -283,8 +284,8 @@ class FormEntregador extends React.Component{
 										fluid
 										label='Complemento'
                                         width={16}
-										value={this.state.enderecoCompleto}
-										onChange={e => this.setState({enderecoCompleto: e.target.value})}>
+										value={this.state.enderecoComplemento}
+										onChange={e => this.setState({enderecoComplemento: e.target.value})}>
 									</Form.Input>
                                 </Form.Group>
 								

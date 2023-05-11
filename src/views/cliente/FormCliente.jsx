@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import InputMask from 'react-input-mask';
 import { Link } from "react-router-dom";
+import { ENDERECO_API } from "../ultil/Constantes";
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 
 class FormCliente extends React.Component{
@@ -27,7 +28,7 @@ class FormCliente extends React.Component{
 			foneFixo: this.state.foneFixo
 		}
 	
-		axios.post("http://localhost:8082/api/cliente", clienteRequest)
+		axios.post(ENDERECO_API + "api/cliente", clienteRequest)
 		.then((response) => {
 			console.log('Cliente cadastrado com sucesso.')
 		})
