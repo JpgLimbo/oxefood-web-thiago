@@ -23,7 +23,7 @@ class FormEntregador extends React.Component{
 		enderecoCep: null,
 		enderecoUf: null,
 		enderecoComplemento: null,
-		ativo: null
+		ativo: true
 
 	}
 	
@@ -289,17 +289,28 @@ class FormEntregador extends React.Component{
 									</Form.Input>
                                 </Form.Group>
 								
-								<Form.Input
-								required
-								label="Ativo"
+								<Form.Group inline>
+
+									<label>Ativo: </label>
+
+									<Form.Radio
+										label='Sim'
+										checked={this.state.ativo}
+										onChange={e => this.setState({
+											ativo: true
+										})}
+									/>
+									
+									<Form.Radio
+										label='Não'
+										checked={!this.state.ativo}
+										onChange={e => this.setState({
+											ativo: false
+										})}
+									/>
+
+								</Form.Group>
 								
-								>			
-									<div value={this.state.ativo}
-									onChange={e => this.setState({ativo: e.target.value})}>
-									<input type="radio" name = "sn" value={true} /><label>Sim</label>
-									<input type="radio" name = "sn" value={false} /><label>Não</label>
-									</div>
-								</Form.Input>		
 								<Form.Group widths='equal' style={{marginTop: '4%'}}  className='form--empresa-salvar'>
 
 									<Button

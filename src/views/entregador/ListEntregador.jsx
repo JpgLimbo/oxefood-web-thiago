@@ -97,7 +97,7 @@ render(){
                                   <Table.HeaderCell>Ativo</Table.HeaderCell>
                                   
                                   
-                                  <Table.HeaderCell textAlign='center' width={2} style={{paddingRight:'40px', paddingLeft:'40px'}}>Ações</Table.HeaderCell>
+                                  <Table.HeaderCell textAlign='center' width={3} style={{paddingRight:'40px', paddingLeft:'40px'}}>Ações</Table.HeaderCell>
                               </Table.Row>
                             </Table.Header>
                      
