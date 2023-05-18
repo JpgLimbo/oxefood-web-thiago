@@ -70,7 +70,6 @@ class FormMaterial extends React.Component{
 									<Form.Input
 										fluid
 										label='Valor'
-										
 										value={this.state.valor}
 										onChange={e => this.setState({valor: e.target.value})}/> 
 										
