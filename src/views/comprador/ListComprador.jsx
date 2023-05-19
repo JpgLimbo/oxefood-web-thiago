@@ -65,7 +65,7 @@ class ListComprador extends React.Component{
                             </Button>
                             <br/><br/><br/>
                       
-                      <Table color='orange' sortable celled>
+                        <Table color='orange' sortable celled>
 
                           <Table.Header>
                               <Table.Row>
@@ -80,37 +80,37 @@ class ListComprador extends React.Component{
                               </Table.Row>
                           </Table.Header>
                      
-                          <Table.Body>
+                        <Table.Body>
 
-                              { this.state.listaComprador.map(comprador => (
+                            { this.state.listaComprador.map(comprador => (
 
-                                  <Table.Row>
-                                      <Table.Cell>{comprador.nome}</Table.Cell>
-                                      <Table.Cell>{comprador.enderecoComercial}</Table.Cell>
-                                      <Table.Cell>{comprador.enderecoResidencial}</Table.Cell>
-                                      <Table.Cell>{comprador.comissao}</Table.Cell>
-                                      <Table.Cell>{comprador.trabalhoHomeOffice }</Table.Cell>
-                                      <Table.Cell>{comprador.qtdComprasMediasMes}</Table.Cell>
-                                      <Table.Cell>{this.formatarData(comprador.contratadoEm)}</Table.Cell>
-                                      <Table.Cell textAlign='center'>
+                                <Table.Row>
+                                     <Table.Cell>{comprador.nome}</Table.Cell>
+                                     <Table.Cell>{comprador.enderecoComercial}</Table.Cell>
+                                     <Table.Cell>{comprador.enderecoResidencial}</Table.Cell>
+                                     <Table.Cell>{comprador.comissao}</Table.Cell>
+                                     <Table.Cell>{comprador.trabalhoHomeOffice }</Table.Cell>
+                                     <Table.Cell>{comprador.qtdComprasMediasMes}</Table.Cell>
+                                     <Table.Cell>{this.formatarData(comprador.contratadoEm)}</Table.Cell>
+                                     <Table.Cell textAlign='center'>
                                          
-                                          <Button
-                                              inverted
-                                              circular
-                                              icon='edit'
-                                              color='blue'
-                                              itle='Clique aqui para editar os dados deste comprador' /> &nbsp;
+                                        <Button
+                                            inverted
+                                            circular
+                                            icon='edit'
+                                            color='blue'
+                                            title='Clique aqui para editar os dados deste comprador' /> &nbsp;
 
-                                             <Button
-                                                inverted
-                                                circular
-                                                 icon='trash'
-                                                 color='red'
-                                                title='Clique aqui para remover este comprador' />
+                                        <Button
+                                            inverted
+                                            circular
+                                            icon='trash'
+                                            color='red'
+                                            title='Clique aqui para remover este comprador' />
 
-                                           </Table.Cell>
-                                       </Table.Row>
-                                   ))}
+                                    </Table.Cell>
+                                 </Table.Row>
+                                ))}
 
                                </Table.Body>
                            </Table>

@@ -124,23 +124,18 @@ class FormComprador extends React.Component{
 
                                 <Form.Group inline>
 
-									<label>Trabalha em Home Office: </label>
-
-									<Form.Radio
-										label='Sim'
-										checked={this.state.trabalhoHomeOffice}
-										onChange={e => this.setState({
-											trabahoHomeOffice: true
-										})}
-									/>
-									
-									<Form.Radio
-										label='Não'
-										checked={!this.state.trabalhoHomeOffice}
-										onChange={e => this.setState({
-											trabahoHomeOffice: false
-										})}
-									/>
+								
+								<Form.Input
+									required
+									label="Trabalha em Home Office:"
+								
+								>			
+									<fieldset value={this.state.trabalhoHomeOffice}
+									onChange={e => this.setState({trabalhoHomeOffice: e.target.value})}	>
+									<input type="radio" name = "sn" value={true} /><label>Sim</label>
+									<input type="radio" name = "sn" value={false} /><label>Não</label>
+									</fieldset>
+								</Form.Input>	
 
 								</Form.Group>
 
