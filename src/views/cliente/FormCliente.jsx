@@ -17,16 +17,6 @@ export default function FormCliente () {
 	const [foneCelular, setFoneCelular] = useState();
 	const [foneFixo, setFoneFixo] = useState();
 
-	function formatarData  (dataParam)  {
- 
-        let data = new Date(dataParam);
-        let dia = data.getDate() < 10 ? "0" + data.getDate() : data.getDate();
-        let mes = (data.getMonth() + 1) < 10 ? "0" + (data.getMonth() + 1) : (data.getMonth() + 1);
-        let dataFormatada = dia + "/" + mes + "/" + data.getFullYear();
-       
-        return dataFormatada
-    };
-
 		useEffect(() => {
 
 				if (state != null && state.id != null) {
@@ -64,8 +54,16 @@ export default function FormCliente () {
 			.catch((error) => { console.log('Erro ao incluir o cliente.') })
 		}
  
-
-	
+	}
+	function formatarData  (dataParam)  {
+ 
+        let data = new Date(dataParam);
+        let dia = data.getDate() < 10 ? "0" + data.getDate() : data.getDate();
+        let mes = (data.getMonth() + 1) < 10 ? "0" + (data.getMonth() + 1) : (data.getMonth() + 1);
+        let dataFormatada = dia + "/" + mes + "/" + data.getFullYear();
+       
+        return dataFormatada
+    };
     
         return(
             <div>
@@ -74,7 +72,13 @@ export default function FormCliente () {
 
                     <Container textAlign='justified' >
 
-                        <h2> <span style={{color: 'darkgray'}}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
+					{ idCliente === undefined &&
+						<h2> <span style={{color: 'darkgray'}}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
+					}
+						{ idCliente != undefined &&
+						<h2> <span style={{color: 'darkgray'}}> Cliente &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>
+					}
+
 
                         <Divider />
 
@@ -114,7 +118,7 @@ export default function FormCliente () {
 										<InputMask 
 										mask="(99) 9999.9999" 
 										value={foneCelular}
-										onChange={e => this.setState({foneCelular: e.target.value})}/> 
+										onChange={e => setSfoneCelular( e.target.value)}/> 
 									</Form.Input>
 
 									<Form.Input
@@ -124,7 +128,7 @@ export default function FormCliente () {
 										<InputMask 
 										mask="(99) 9999.9999" 
 										value={foneFixo}
-										onChange={e => this.setState({foneFixo: e.target.value})}/> 
+										onChange={e => setFoneFixo(e.target.value)}/> 
 									</Form.Input>
 
                                     <Form.Input
@@ -137,8 +141,7 @@ export default function FormCliente () {
                                             maskChar={null}
                                             placeholder="Ex: 20/03/1985"
 											value={dataNascimento}
-											onChange={e => this.setState({dataNascimento: e.target.value})}
-                                        /> 
+											onChange={e => setDataNascimento(e.target.value)}/> 
                                     </Form.Input>
 
 								</Form.Group>
@@ -186,4 +189,4 @@ export default function FormCliente () {
 			</div>
 		)
 	}
-}
+

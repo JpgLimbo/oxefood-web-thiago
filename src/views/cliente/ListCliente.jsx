@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React from "react";
 import { Link } from "react-router-dom";
-import { ENDERECO_API } from '../ultil/Constantes';
 import { Button, Container, Divider, Icon, Table } from 'semantic-ui-react';
+import { ENDERECO_API } from '../ultil/Constantes';
 
 class ListCliente extends React.Component{
 
