@@ -10,6 +10,7 @@ import { ENDERECO_API } from "../ultil/Constantes";
 export default function FormCliente () {
 
 	const { state } = useLocation();
+
 	const [idCliente, setIdCliente] = useState();
 	const [nome, setNome] = useState();
 	const [cpf, setCpf] = useState();
@@ -20,6 +21,7 @@ export default function FormCliente () {
 		useEffect(() => {
 
 				if (state != null && state.id != null) {
+					
 					axios.get(ENDERECO_API + "api/cliente/" + state.id)
 					.then((response) => {
 						setIdCliente(response.data.id)
@@ -45,25 +47,38 @@ export default function FormCliente () {
 		}
 	
 		if (idCliente != null) { //Alteração:
+
 			axios.put(ENDERECO_API + "api/cliente/" + idCliente, clienteRequest)
 			.then((response) => { console.log('Cliente alterado com sucesso.') })
 			.catch((error) => { console.log('Erro ao alter um cliente.') })
+
 		} else { //Cadastro:
+
 			axios.post(ENDERECO_API + "api/cliente", clienteRequest)
 			.then((response) => { console.log('Cliente cadastrado com sucesso.') })
 			.catch((error) => { console.log('Erro ao incluir o cliente.') })
 		}
- 
 	}
 	function formatarData  (dataParam)  {
  
-        let data = new Date(dataParam);
+		if (dataParam == null || dataParam == '') {
+            return ''
+        }
+        
+        let dia = dataParam.substr(8,2);
+        let mes = dataParam.substr(5,2);
+        let ano = dataParam.substr(0,4);
+        let dataFormatada = dia + '/' + mes + '/' + ano;
+
+        return dataFormatada
+    }
+        /*let data = new Date(dataParam);
         let dia = data.getDate() < 10 ? "0" + data.getDate() : data.getDate();
         let mes = (data.getMonth() + 1) < 10 ? "0" + (data.getMonth() + 1) : (data.getMonth() + 1);
         let dataFormatada = dia + "/" + mes + "/" + data.getFullYear();
        
         return dataFormatada
-    };
+    };*/
     
         return(
             <div>
@@ -118,7 +133,7 @@ export default function FormCliente () {
 										<InputMask 
 										mask="(99) 9999.9999" 
 										value={foneCelular}
-										onChange={e => setSfoneCelular( e.target.value)}/> 
+										onChange={e => setFoneCelular( e.target.value)}/> 
 									</Form.Input>
 
 									<Form.Input
@@ -155,29 +170,28 @@ export default function FormCliente () {
 										icon
 										labelPosition='left'
 										color='orange'
-										onClick={this.listar}
+										//onClick={this.listar}
 										>
 										<Icon name='reply' />
 										<Link to={'/list-cliente'}>Voltar</Link>
 
 									</Button>
-
+										
 									<Container textAlign='right'>
-										
-										<Button
-											inverted
-											circular
-											icon
-											labelPosition='left'
-											color='blue'
-											floated='right'
-											onClick={() => salvar()}
-											
-										>
-											<Icon name='save' />
-											Salvar
-										</Button>
-										
+									
+									<Button
+										inverted
+										circular
+										icon
+										labelPosition='left'
+										color='blue'
+										floated='right'
+										onClick={() => salvar()}
+									>
+										<Icon name='save' />
+										Salvar
+									</Button>
+
 									</Container>
 
 								</Form.Group>

@@ -133,11 +133,13 @@ render(){
                                             color='pink'
                                             title='Visualizar entregadores' /> &nbsp;
                                         <Button
-                                            inverted
-                                            circular
-                                            icon='edit'
-                                            color='blue'
-                                            title='Clique aqui para editar os dados deste entregador' /> &nbsp;
+                                        inverted
+                                        circular
+                                        color='green'
+                                        title='Clique aqui para editar os dados deste entregador'
+                                        icon>
+                                            <Link to="/form-entregador" state={{id: entregador.id}} style={{color: 'green'}}> <Icon name='edit' /> </Link>
+                                    </Button> &nbsp;
                                         <Button
                                             inverted
                                             circular
