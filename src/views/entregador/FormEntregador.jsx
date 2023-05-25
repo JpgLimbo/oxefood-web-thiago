@@ -10,7 +10,7 @@ export default function FormEntregador () {
 
 	const { state } = useLocation();
 
-	const [idEntregador, setIdEntregador] = useState();
+	const [identregador, setIdEntregador] = useState();
 	const [nome, setNome] = useState();
 	const [rg, setRg] = useState();
 	const [cpf, setCpf] = useState();
@@ -59,27 +59,27 @@ export default function FormEntregador () {
 
 		let entregadorRequest = {
 
-			nome: state.nome,
-			cpf: state.cpf,
-			rg: state.rg,
-			dataNascimento: state.dataNascimento,
-			foneCelular: state.foneCelular,
-			foneFixo: state.foneFixo,
-			qtdEntregasRealizadas: state.qtdEntregasRealizadas,
-			valorFrete: state.valorFrete,
-			enderecoRua: state.enderecoRua,
-			enderecoNumero: state.enderecoNumero,
-			enderecoBairro: state.enderecoBairro,
-			enderecoCidade: state.enderecoCidade,
-			enderecoCep: state.enderecoCep,
-			enderecoUf: state.enderecoUf,	
-			enderecoComplemento: state.enderecoComplemento,
-			ativo: state.ativo
+			nome: nome,
+			cpf: cpf,
+			rg: rg,
+			dataNascimento: dataNascimento,
+			foneCelular: foneCelular,
+			foneFixo: foneFixo,
+			qtdEntregasRealizadas: qtdEntregasRealizadas,
+			valorFrete: valorFrete,
+			enderecoRua: enderecoRua,
+			enderecoNumero: enderecoNumero,
+			enderecoBairro: enderecoBairro,
+			enderecoCidade: enderecoCidade,
+			enderecoCep: enderecoCep,
+			enderecoUf: enderecoUf,	
+			enderecoComplemento: enderecoComplemento,
+			ativo: ativo
 		}
 	
-		if (idEntregador != null) { //Alteração:
+		if (identregador != null) { //Alteração:
 
-			axios.put(ENDERECO_API + "api/entregador/" + idEntregador, entregadorRequest)
+			axios.put(ENDERECO_API + "api/entregador/" + identregador, entregadorRequest)
 			.then((response) => { console.log('Entregador alterado com sucesso.') })
 			.catch((error) => { console.log('Erro ao alter um Entregador.') })
 
