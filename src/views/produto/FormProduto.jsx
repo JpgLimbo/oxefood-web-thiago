@@ -1,42 +1,68 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InputMask from 'react-input-mask';
+import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import { ENDERECO_API } from "../ultil/Constantes";
 
-class FormProduto extends React.Component{
-	state = {
-		
-		titulo: null,
-		codigo: null,
-		descricao: null,
-		valorUnitario: null,
-		tempoEntregaMinimo: null,
-		tempoEntregaMaximo: null
-	}
+export default function FormProduto() {
+	
+	const { state } = useLocation();
 
-	salvar = () => {
+	const [idproduto, setIdProduto] = useState();
+	const [codigo, setCodigo] = useState();
+	const [titulo, setTitulo] = useState();
+	const [descricao, setDescricao] = useState();
+	const [valorUnitario, setValorUnitario] = useState();
+	const [tempoEntregaMinimo, setTempoEntregaMinimo] = useState();
+	const [tempoEntregaMaximo, setTempoEntregaMaximo] = useState();
+
+	useEffect(() => {
+
+		if (state != null && state.id != null) {
+			
+			axios.get(ENDERECO_API + "api/produto/" + state.id)
+			.then((response) => {
+				setIdProduto(response.data.id)
+				setCodigo(response.data.codigo)
+				setTitulo(response.data.titulo)
+				setDescricao(response.data.descricao)
+				setValorUnitario(response.data.valorUnitario)
+				setTempoEntregaMinimo(response.data.tempoEntregaMinimo)
+				setTempoEntregaMaximo(response.data.tempoEntregaMaximo)
+			})
+		}
+			}, [state])
+
+	function salvar()  {
 
 		let produtoRequest = {
 
-			titulo: this.state.titulo,
-			codigo: this.state.codigo,
-			descricao: this.state.descricao,
-			valorUnitario: this.state.valorUnitario,
-			tempoEntregaMinimo: this.state.tempoEntregaMinimo,
-			tempoEntregaMaximo: this.state.tempoEntregaMaximo
-		}
-	
-		axios.post(ENDERECO_API + "api/produto", produtoRequest)
-		.then((response) => {
-			console.log('Produto cadastrado com sucesso.')
-		})
-		.catch((error) => {
-			console.log('Erro ao incluir o um produto.')
-		})
-	}
+				codigo: codigo,
+				titulo: titulo,
+				descricao: descricao,
+				valorUnitario: valorUnitario,
+				tempoEntregaMinimo: tempoEntregaMinimo,
+				tempoEntregaMaximo: tempoEntregaMaximo
+				
+			}
+		
+		if (idproduto != null) { //Alteração:
 
-    render(){
+			axios.put(ENDERECO_API + "api/produto/" + idproduto, produtoRequest)
+			.then((response) => { console.log('Entregador alterado com sucesso.') })
+			.catch((error) => { console.log('Erro ao alter um Entregador.') })
+
+		} else { //Cadastro:
+
+			axios.post(ENDERECO_API + "api/produto", produtoRequest)
+			.then((response) => { console.log('Entregador cadastrado com sucesso.') })
+			.catch((error) => { console.log('Erro ao incluir o Entregador.') })
+		}
+	}
+	
+
+    
         return(
             <div>
 
@@ -60,8 +86,8 @@ class FormProduto extends React.Component{
 										label='Titulo'
 										maxLength="100"
                                         placeholder="Informe o Titulo do Produto"
-										value={this.state.titulo}
-										onChange={e => this.setState({titulo: e.target.value})}
+										value={titulo}
+										onChange={e => setTitulo( e.target.value)}
 									/>
 
 									<Form.Input
@@ -69,8 +95,8 @@ class FormProduto extends React.Component{
                                         fluid
 										label='Código do produto'
                                         placeholder="Informe o Titulo do Produto"
-										value={this.state.codigo}
-										onChange={e => this.setState({codigo: e.target.value})}
+										value={codigo}
+										onChange={e => setCodigo(e.target.value)}
                                         >
                                         
 									
@@ -85,8 +111,8 @@ class FormProduto extends React.Component{
 										
 										placeholder='Informe a Descrição do produto' 
                                         width={16}
-										value={this.state.descricao}
-										onChange={e => this.setState({descricao: e.target.value})}/>
+										value={descricao}
+										onChange={e => setDescricao(e.target.value)}/>
 										
 									</Form.Group>
                             
@@ -98,8 +124,8 @@ class FormProduto extends React.Component{
                                         width={4}>
 										<InputMask 
 										mask="99.99" 
-										value={this.state.valorUnitario}
-										onChange={e => this.setState({valorUnitario: e.target.value})}/> 
+										value={valorUnitario}
+										onChange={e => setValorUnitario(e.target.value)}/> 
 									</Form.Input>
 
 									<Form.Input
@@ -108,8 +134,8 @@ class FormProduto extends React.Component{
                                         width={9}>
 										<InputMask 
 										mask="99" 
-										value={this.state.tempoEntregaMinimo}
-										onChange={e => this.setState({tempoEntregaMinimo: e.target.value})}/> 
+										value={tempoEntregaMinimo}
+										onChange={e => setTempoEntregaMinimo( e.target.value)}/> 
 									</Form.Input>
 
                                     <Form.Input
@@ -119,8 +145,8 @@ class FormProduto extends React.Component{
                                     >
                                         <InputMask 
                                             mask="99"
-											value={this.state.tempoEntregaMaximo}
-											onChange={e => this.setState({tempoEntregaMaximo: e.target.value})} 
+											value={tempoEntregaMaximo}
+											onChange={e => setTempoEntregaMaximo(e.target.value)} 
                                             
                                         /> 
                                     </Form.Input>
@@ -129,17 +155,18 @@ class FormProduto extends React.Component{
 
 								<Form.Group widths='equal' style={{marginTop: '4%'}}  className='form--empresa-salvar'>
 
-									<Button
+								<Button
 										type="button"
 										inverted
 										circular
 										icon
 										labelPosition='left'
 										color='orange'
-										onClick={this.listar}
+										
 										>
 										<Icon name='reply' />
-										Voltar
+										<Link to={'/list-produto'}>Voltar</Link>
+										
 									</Button>
 
 									<Container textAlign='right'>
@@ -151,7 +178,7 @@ class FormProduto extends React.Component{
 											labelPosition='left'
 											color='blue'
 											floated='right'
-											onClick={this.salvar}
+											onClick={() =>salvar()}
 										>
 											<Icon name='save' />
 											Salvar
@@ -168,6 +195,5 @@ class FormProduto extends React.Component{
 			</div>
 		)
 	}
-}
 
-export default FormProduto;
+

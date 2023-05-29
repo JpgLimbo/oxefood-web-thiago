@@ -1,15 +1,16 @@
 import axios from 'axios';
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Container, Divider, Icon, Table } from 'semantic-ui-react';
+import { Button, Container, Divider, Header, Icon, Modal, Table } from 'semantic-ui-react';
 import { ENDERECO_API } from '../ultil/Constantes';
 
 class ListEntregador extends React.Component{
 
    state = {
 
-       listaEntregadores: []
-      
+       listaEntregadores: [],
+       openModal: false,
+       idRemover: null
     }
 
    componentDidMount = () => {
@@ -47,6 +48,45 @@ class ListEntregador extends React.Component{
         return dataFormatada
     };
 
+    confirmaRemover = (id) => {
+
+        this.setState({
+            openModal: true,
+            idRemover: id
+             })  
+        }
+        
+        remover = async () => {
+
+            await axios.delete(ENDERECO_API + 'api/entregador/' + this.state.idRemover)
+            .then((response) => {
+       
+                this.setState({ openModal: false })
+                console.log('Entregador removido com sucesso.')
+       
+                axios.get(ENDERECO_API + "api/entregador")
+                .then((response) => {
+               
+                    this.setState({
+                        listaEntregadores: response.data
+                    })
+                })
+            })
+            .catch((error) => {
+                this.setState({  openModal: false })
+                console.log('Erro ao remover um entregador.')
+            })
+     };
+     
+
+        setOpenModal = (val) => {
+
+            this.setState({
+                openModal: val
+            })
+       
+        };
+     
 
 render(){
     return(
@@ -140,13 +180,15 @@ render(){
                                         icon>
                                             <Link to="/form-entregador" state={{id: entregador.id}} style={{color: 'green'}}> <Icon name='edit' /> </Link>
                                     </Button> &nbsp;
-                                        <Button
-                                            inverted
-                                            circular
-                                            icon='trash'
-                                            color='red'
-                                            title='Clique aqui para remover este entregador' />
-
+                                    <Button
+                                                   inverted
+                                                   circular
+                                                   icon='trash'
+                                                   color='red'
+                                                   title='Clique aqui para remover este cliente' 
+                                                    onClick={e => this.confirmaRemover(entregador.id)}>
+                                                        <Icon name='trash' />
+                                                    </Button>
                                         </Table.Cell>
                                 </Table.Row>
                             ))}
@@ -155,6 +197,25 @@ render(){
                     </div>
                 </Container>
             </div>
+            <Modal
+                   			basic
+                   			onClose={() => this.setOpenModal(false)}
+                   			onOpen={() => this.setOpenModal(true)}
+                   			open={this.state.openModal}
+               			>
+                   			<Header icon>
+                       				<Icon name='trash' />
+                       				<div style={{marginTop: '5%'}}> Tem certeza que deseja remover esse registro? </div>
+                   			</Header>
+                   			<Modal.Actions>
+                       				<Button basic color='red' inverted onClick={() => this.setOpenModal(false)}>
+                       					<Icon name='remove' /> Não
+                       				</Button>
+                       				<Button color='green' inverted onClick={() => this.remover()}>
+                       					<Icon name='checkmark' /> Sim
+                       				</Button>
+                   			</Modal.Actions>
+            </Modal>
         </div>
        )
    }
