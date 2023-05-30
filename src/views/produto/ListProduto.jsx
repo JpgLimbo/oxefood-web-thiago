@@ -1,15 +1,16 @@
 import axios from 'axios';
 import React from "react";
 import { Link } from "react-router-dom";
-import { ENDERECO_API } from '../ultil/Constantes';
 import { Button, Container, Divider, Icon, Table } from 'semantic-ui-react';
+import { ENDERECO_API } from '../ultil/Constantes';
 
 class ListProduto extends React.Component{
 
    state = {
 
-       listaProduto: []
-      
+       listaProduto: [],
+       openModal: false,
+       idRemover: null
    }
 
    componentDidMount = () => {
@@ -19,15 +20,52 @@ class ListProduto extends React.Component{
    }
    carregarLista = () => {
 
-    axios.get(ENDERECO_API +"api/produto")
+    axios.get(ENDERECO_API +"api/material")
     .then((response) => {
        
         this.setState({
-            listaProduto: response.data
+            listaMaterial: response.data
         })
     })
 
 };
+confirmaRemover = (id) => {
+
+    this.setState({
+        openModal: true,
+        idRemover: id
+         })  
+    }
+    remover = async () => {
+
+        await axios.delete(ENDERECO_API + 'api/material/' + this.state.idRemover)
+        .then((response) => {
+   
+            this.setState({ openModal: false })
+            console.log('Material removido com sucesso.')
+   
+            axios.get(ENDERECO_API + "api/material")
+            .then((response) => {
+           
+                this.setState({
+                    listaMateriais: response.data
+                })
+            })
+        })
+        .catch((error) => {
+            this.setState({  openModal: false })
+            console.log('Erro ao remover um material.')
+        })
+ };
+ 
+
+    setOpenModal = (val) => {
+
+        this.setState({
+            openModal: val
+        })
+   
+    };
 
 render(){
     return(

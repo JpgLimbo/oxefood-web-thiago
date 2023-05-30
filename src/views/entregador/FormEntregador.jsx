@@ -6,11 +6,11 @@ import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import { ENDERECO_API } from "../ultil/Constantes";
 
 
-export default function FormEntregador () {
+export default function FormEntregador() {
 
 	const { state } = useLocation();
 
-	const [identregador, setIdEntregador] = useState();
+	const [idEntregador, setIdEntregador] = useState();
 	const [nome, setNome] = useState();
 	const [rg, setRg] = useState();
 	const [cpf, setCpf] = useState();
@@ -77,9 +77,9 @@ export default function FormEntregador () {
 			ativo: ativo
 		}
 	
-		if (identregador != null) { //Alteração:
+		if (idEntregador != null) { //Alteração:
 
-			axios.put(ENDERECO_API + "api/entregador/" + identregador, entregadorRequest)
+			axios.put(ENDERECO_API + "api/entregador/" + idEntregador, entregadorRequest)
 			.then((response) => { console.log('Entregador alterado com sucesso.') })
 			.catch((error) => { console.log('Erro ao alter um Entregador.') })
 

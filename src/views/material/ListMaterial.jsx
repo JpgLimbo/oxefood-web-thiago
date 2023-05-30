@@ -1,15 +1,16 @@
 import axios from 'axios';
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button, Container, Divider, Header, Icon, Modal, Table } from 'semantic-ui-react';
 import { ENDERECO_API } from '../ultil/Constantes';
-import { Button, Container, Divider, Icon, Table } from 'semantic-ui-react';
 
 class ListMaterial extends React.Component{
 
    state = {
 
-       listaMaterial: []
-      
+       listaMaterial: [],
+       openModal: false,
+       idRemover: null
    }
 
    componentDidMount = () => {
@@ -23,13 +24,64 @@ class ListMaterial extends React.Component{
     .then((response) => {
        
         this.setState({
-            listaMaterial: response.data
+            listaMateriais: response.data
         })
     })
+    };
+    
+    formatarData = (dataParam) => {
 
-};
+        /*
+        if (dataParam == null || dataParam == '') {
+            return ''
+        }
+        
+        let dia = dataParam.substr(8,2);
+        let mes = dataParam.substr(5,2);
+        let ano = dataParam.substr(0,4);
+        let dataFormatada = dia + '/' + mes + '/' + ano;
+        */
 
-render(){
+       let dataFormatada = dataParam
+
+        return dataFormatada
+    };
+     confirmaRemover = (id) => {
+
+        this.setState({
+            openModal: true,
+            idRemover: id
+             })  
+        }
+        
+        remover = async () => {
+
+            await axios.delete(ENDERECO_API + 'api/material/' + this.state.idRemover)
+            .then((response) => {
+       
+                this.setState({ openModal: false })
+                console.log('Material removido com sucesso.')
+       
+                axios.get(ENDERECO_API + "api/material")
+                .then((response) => {
+               
+                    this.setState({
+                        listaMateriais: response.data
+                    })
+                })
+            })
+            .catch((error) => {
+                this.setState({  openModal: false })
+                console.log('Erro ao remover um material.')
+            })
+        };
+        setOpenModal = (val) => {
+
+            this.setState({
+                openModal: val
+            })
+        };
+    render(){
     return(
         <div>
 
@@ -72,7 +124,7 @@ render(){
                      
                           <Table.Body>
 
-                              { this.state.listaMaterial.map(material => (
+                              { this.state.listaMateriais.map(material => (
 
                                   <Table.Row>
                                       <Table.Cell>{material.titulo}</Table.Cell>
@@ -105,6 +157,25 @@ render(){
                        </div>
                    </Container>
                </div>
+               <Modal
+                   			basic
+                   			onClose={() => this.setOpenModal(false)}
+                   			onOpen={() => this.setOpenModal(true)}
+                   			open={this.state.openModal}
+               			>
+                   			<Header icon>
+                       				<Icon name='trash' />
+                       				<div style={{marginTop: '5%'}}> Tem certeza que deseja remover esse registro? </div>
+                   			</Header>
+                   			<Modal.Actions>
+                       				<Button basic color='red' inverted onClick={() => this.setOpenModal(false)}>
+                       					<Icon name='remove' /> Não
+                       				</Button>
+                       				<Button color='green' inverted onClick={() => this.remover()}>
+                       					<Icon name='checkmark' /> Sim
+                       				</Button>
+                   			</Modal.Actions>
+               			</Modal>
            </div>
        )
    }
