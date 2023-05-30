@@ -10,7 +10,7 @@ class ListCliente extends React.Component{
  
         listaClientes: [],
         openModal: false,
-        idRemover: null,
+        idRemover: null
         
     }
    
