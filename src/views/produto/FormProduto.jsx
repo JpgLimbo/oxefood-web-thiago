@@ -1,10 +1,68 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import InputMask from 'react-input-mask';
-import { Button, Container, Divider, Form, Icon, TextArea } from 'semantic-ui-react';
+import { Link, useLocation } from "react-router-dom";
+import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
+import { ENDERECO_API } from "../ultil/Constantes";
 
-class FormProduto extends React.Component{
+export default function FormProduto() {
+	
+	const { state } = useLocation();
 
-    render(){
+	const [idproduto, setIdProduto] = useState();
+	const [codigo, setCodigo] = useState();
+	const [titulo, setTitulo] = useState();
+	const [descricao, setDescricao] = useState();
+	const [valorUnitario, setValorUnitario] = useState();
+	const [tempoEntregaMinimo, setTempoEntregaMinimo] = useState();
+	const [tempoEntregaMaximo, setTempoEntregaMaximo] = useState();
+
+	useEffect(() => {
+
+		if (state != null && state.id != null) {
+			
+			axios.get(ENDERECO_API + "api/produto/" + state.id)
+			.then((response) => {
+				setIdProduto(response.data.id)
+				setCodigo(response.data.codigo)
+				setTitulo(response.data.titulo)
+				setDescricao(response.data.descricao)
+				setValorUnitario(response.data.valorUnitario)
+				setTempoEntregaMinimo(response.data.tempoEntregaMinimo)
+				setTempoEntregaMaximo(response.data.tempoEntregaMaximo)
+			})
+		}
+			}, [state])
+
+	function salvar()  {
+
+		let produtoRequest = {
+
+				codigo: codigo,
+				titulo: titulo,
+				descricao: descricao,
+				valorUnitario: valorUnitario,
+				tempoEntregaMinimo: tempoEntregaMinimo,
+				tempoEntregaMaximo: tempoEntregaMaximo
+				
+			}
+		
+		if (idproduto != null) { //Alteração:
+
+			axios.put(ENDERECO_API + "api/produto/" + idproduto, produtoRequest)
+			.then((response) => { console.log('Entregador alterado com sucesso.') })
+			.catch((error) => { console.log('Erro ao alter um Entregador.') })
+
+		} else { //Cadastro:
+
+			axios.post(ENDERECO_API + "api/produto", produtoRequest)
+			.then((response) => { console.log('Entregador cadastrado com sucesso.') })
+			.catch((error) => { console.log('Erro ao incluir o Entregador.') })
+		}
+	}
+	
+
+    
         return(
             <div>
 
@@ -28,6 +86,8 @@ class FormProduto extends React.Component{
 										label='Titulo'
 										maxLength="100"
                                         placeholder="Informe o Titulo do Produto"
+										value={titulo}
+										onChange={e => setTitulo( e.target.value)}
 									/>
 
 									<Form.Input
@@ -35,6 +95,8 @@ class FormProduto extends React.Component{
                                         fluid
 										label='Código do produto'
                                         placeholder="Informe o Titulo do Produto"
+										value={codigo}
+										onChange={e => setCodigo(e.target.value)}
                                         >
                                         
 									
@@ -42,12 +104,22 @@ class FormProduto extends React.Component{
                                         
 								</Form.Group>
 								
+<<<<<<< HEAD
                                 <Form.Group
 										label='Código do produto'
                         					>
+=======
+                                <Form.Group>
+>>>>>>> 3307edc3021874e1af1bc76532cb05dbbeaa016c
                                         
-                                        <TextArea placeholder='Informe a Descrição do produto' 
-                                        />
+                                        <Form.TextArea label ="Descrição"
+										 
+										
+										placeholder='Informe a Descrição do produto' 
+                                        width={16}
+										value={descricao}
+										onChange={e => setDescricao(e.target.value)}/>
+										
 									</Form.Group>
                             
 								<Form.Group>
@@ -57,7 +129,9 @@ class FormProduto extends React.Component{
 										label='Valor Unitário'
                                         width={4}>
 										<InputMask 
-										mask="99,99" /> 
+										mask="99.99" 
+										value={valorUnitario}
+										onChange={e => setValorUnitario(e.target.value)}/> 
 									</Form.Input>
 
 									<Form.Input
@@ -65,7 +139,9 @@ class FormProduto extends React.Component{
 										label='Tempo de Entrega Minimo em minutos'
                                         width={9}>
 										<InputMask 
-										mask="99" /> 
+										mask="99" 
+										value={tempoEntregaMinimo}
+										onChange={e => setTempoEntregaMinimo( e.target.value)}/> 
 									</Form.Input>
 
                                     <Form.Input
@@ -74,7 +150,9 @@ class FormProduto extends React.Component{
                                         width={6}
                                     >
                                         <InputMask 
-                                            mask="99" 
+                                            mask="99"
+											value={tempoEntregaMaximo}
+											onChange={e => setTempoEntregaMaximo(e.target.value)} 
                                             
                                         /> 
                                     </Form.Input>
@@ -83,17 +161,18 @@ class FormProduto extends React.Component{
 
 								<Form.Group widths='equal' style={{marginTop: '4%'}}  className='form--empresa-salvar'>
 
-									<Button
+								<Button
 										type="button"
 										inverted
 										circular
 										icon
 										labelPosition='left'
 										color='orange'
-										onClick={this.listar}
+										
 										>
 										<Icon name='reply' />
-										Voltar
+										<Link to={'/list-produto'}>Voltar</Link>
+										
 									</Button>
 
 									<Container textAlign='right'>
@@ -105,7 +184,7 @@ class FormProduto extends React.Component{
 											labelPosition='left'
 											color='blue'
 											floated='right'
-											onClick={this.salvar}
+											onClick={() =>salvar()}
 										>
 											<Icon name='save' />
 											Salvar
@@ -122,6 +201,5 @@ class FormProduto extends React.Component{
 			</div>
 		)
 	}
-}
 
-export default FormProduto;
+
