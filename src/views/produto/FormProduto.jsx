@@ -9,7 +9,7 @@ export default function FormProduto() {
 	
 	const { state } = useLocation();
 
-	const [idproduto, setIdProduto] = useState();
+	const [idProduto, setIdProduto] = useState();
 	const [codigo, setCodigo] = useState();
 	const [titulo, setTitulo] = useState();
 	const [descricao, setDescricao] = useState();
@@ -47,9 +47,9 @@ export default function FormProduto() {
 				
 			}
 		
-		if (idproduto != null) { //Alteração:
+		if (idProduto != null) { //Alteração:
 
-			axios.put(ENDERECO_API + "api/produto/" + idproduto, produtoRequest)
+			axios.put(ENDERECO_API + "api/produto/" + idProduto, produtoRequest)
 			.then((response) => { console.log('Entregador alterado com sucesso.') })
 			.catch((error) => { console.log('Erro ao alter um Entregador.') })
 
@@ -104,13 +104,9 @@ export default function FormProduto() {
                                         
 								</Form.Group>
 								
-<<<<<<< HEAD
                                 <Form.Group
 										label='Código do produto'
                         					>
-=======
-                                <Form.Group>
->>>>>>> 3307edc3021874e1af1bc76532cb05dbbeaa016c
                                         
                                         <Form.TextArea label ="Descrição"
 										 

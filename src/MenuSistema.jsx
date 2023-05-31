@@ -52,7 +52,6 @@ class MenuSistema extends React.Component{
                        as={Link}
                        to='/list-material'
                    />
-
                     <Menu.Item
                        name='comprador'
                        active={this.state.activeItem === 'comprador'}
@@ -60,7 +59,6 @@ class MenuSistema extends React.Component{
                        as={Link}
                        to='/list-comprador'
                    />
-
 
                </Menu>
            </>

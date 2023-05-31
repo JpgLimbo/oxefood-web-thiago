@@ -8,7 +8,7 @@ class ListMaterial extends React.Component{
 
    state = {
 
-       listaMaterial: [],
+       listaMateriais: [],
        openModal: false,
        idRemover: null
    }
@@ -20,7 +20,7 @@ class ListMaterial extends React.Component{
    }
    carregarLista = () => {
 
-    axios.get(ENDERECO_API +"api/material")
+    axios.get(ENDERECO_API + "api/material")
     .then((response) => {
        
         this.setState({
@@ -135,18 +135,23 @@ class ListMaterial extends React.Component{
                                       <Table.Cell>{material.dataAquisicao}</Table.Cell>
                                       <Table.Cell textAlign='center'>
                                          
-                                          <Button
-                                              inverted
-                                              circular
-                                              icon='edit'
-                                              color='blue'
-                                              itle='Clique aqui para editar os dados deste Material' /> &nbsp;
-                                            <Button
-                                                   inverted
-                                                   circular
-                                                   icon='trash'
-                                                   color='red'
-                                                   title='Clique aqui para remover este Material' />
+                                      <Button
+                                        inverted
+                                        circular
+                                        color='green'
+                                        title='Clique aqui para editar os dados deste material'
+                                        icon>
+                                            <Link to="/form-material" state={{id: material.id}} style={{color: 'green'}}> <Icon name='edit' /> </Link>
+                                    </Button> &nbsp;
+                                    <Button
+                                        inverted
+                                        circular
+                                        icon='trash'
+                                        color='red'
+                                        title='Clique aqui para remover este material' 
+                                         onClick={e => this.confirmaRemover(material.id)}>
+                                            <Icon name='trash' />
+                                    </Button>
 
                                            </Table.Cell>
                                        </Table.Row>

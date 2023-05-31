@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from "react";
 import { Link } from "react-router-dom";
-import { Button, Container, Divider, Icon, Table } from 'semantic-ui-react';
+import { Button, Container, Divider, Header, Icon, Modal, Table } from 'semantic-ui-react';
 import { ENDERECO_API } from '../ultil/Constantes';
 
 class ListProduto extends React.Component{
@@ -20,11 +20,11 @@ class ListProduto extends React.Component{
    }
    carregarLista = () => {
 
-    axios.get(ENDERECO_API +"api/material")
+    axios.get(ENDERECO_API +"api/produto")
     .then((response) => {
        
         this.setState({
-            listaMaterial: response.data
+            listaProdutos: response.data
         })
     })
 
@@ -38,23 +38,23 @@ confirmaRemover = (id) => {
     }
     remover = async () => {
 
-        await axios.delete(ENDERECO_API + 'api/material/' + this.state.idRemover)
+        await axios.delete(ENDERECO_API + 'api/produto/' + this.state.idRemover)
         .then((response) => {
    
             this.setState({ openModal: false })
-            console.log('Material removido com sucesso.')
+            console.log('Produto removido com sucesso.')
    
-            axios.get(ENDERECO_API + "api/material")
+            axios.get(ENDERECO_API + "api/produto")
             .then((response) => {
            
                 this.setState({
-                    listaMateriais: response.data
+                    listaProdutos: response.data
                 })
             })
         })
         .catch((error) => {
             this.setState({  openModal: false })
-            console.log('Erro ao remover um material.')
+            console.log('Erro ao remover um produto.')
         })
  };
  
@@ -121,18 +121,23 @@ render(){
                                       <Table.Cell>{produto.tempoEntregaMaximo}</Table.Cell>
                                       <Table.Cell textAlign='center'>
                                          
-                                          <Button
-                                              inverted
-                                              circular
-                                              icon='edit'
-                                              color='blue'
-                                              itle='Clique aqui para editar os dados deste cliente' /> &nbsp;
-                                            <Button
-                                                   inverted
-                                                   circular
-                                                   icon='trash'
-                                                   color='red'
-                                                   title='Clique aqui para remover este cliente' />
+                                    <Button
+                                        inverted
+                                        circular
+                                        color='green'
+                                        title='Clique aqui para editar os dados deste produto'
+                                        icon>
+                                            <Link to="/form-produto" state={{id: produto.id}} style={{color: 'green'}}> <Icon name='edit' /> </Link>
+                                    </Button> &nbsp;
+                                    <Button
+                                        inverted
+                                        circular
+                                        icon='trash'
+                                        color='red'
+                                        title='Clique aqui para remover este produto' 
+                                         onClick={e => this.confirmaRemover(produto.id)}>
+                                            <Icon name='trash' />
+                                    </Button>
 
                                            </Table.Cell>
                                        </Table.Row>
@@ -143,6 +148,25 @@ render(){
                        </div>
                    </Container>
                </div>
+               <Modal
+                   			basic
+                   			onClose={() => this.setOpenModal(false)}
+                   			onOpen={() => this.setOpenModal(true)}
+                   			open={this.state.openModal}
+               			>
+                   			<Header icon>
+                       				<Icon name='trash' />
+                       				<div style={{marginTop: '5%'}}> Tem certeza que deseja remover esse registro? </div>
+                   			</Header>
+                   			<Modal.Actions>
+                       				<Button basic color='red' inverted onClick={() => this.setOpenModal(false)}>
+                       					<Icon name='remove' /> Não
+                       				</Button>
+                       				<Button color='green' inverted onClick={() => this.remover()}>
+                       					<Icon name='checkmark' /> Sim
+                       				</Button>
+                   			</Modal.Actions>
+               			</Modal>
            </div>
        )
    }
