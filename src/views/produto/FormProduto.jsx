@@ -43,8 +43,8 @@ class FormProduto extends React.Component{
 								</Form.Group>
 								
                                 <Form.Group
-										
-                                        >
+										label='Código do produto'
+                        					>
                                         
                                         <TextArea placeholder='Informe a Descrição do produto' 
                                         />
