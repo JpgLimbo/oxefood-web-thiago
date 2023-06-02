@@ -94,19 +94,19 @@ class ListMaterial extends React.Component{
                     <Divider />
 
                     <div style={{marginTop: '4%'}}>
-
-                        <Button
-                            inverted
-                            circular
-                            icon
-                            labelPosition='left'
-                            color='orange'
-                            floated='right'
-                        >
-                            <Icon name='clipboard outline' />
-                            <Link to={'/form-material'}>Novo</Link>
-                        </Button>
-                        <br/><br/><br/>
+ 
+                            <Button
+                                inverted
+                                circular
+                                icon
+                                labelPosition='left'
+                                color='orange'
+                                floated='right'
+                            >
+                                <Icon name='clipboard outline' />
+                                <Link to={'/form-material'}>Novo</Link>
+                            </Button>
+                            <br/><br/><br/>
                       
                       <Table color='orange' sortable celled>
 
@@ -132,7 +132,7 @@ class ListMaterial extends React.Component{
                                       <Table.Cell>{material.responsavel}</Table.Cell>
                                       <Table.Cell>{material.localizacao}</Table.Cell>
                                       <Table.Cell>{material.peso}</Table.Cell>
-                                      <Table.Cell>{material.dataAquisicao}</Table.Cell>
+                                      <Table.Cell>{this.formatarData(material.dataAquisicao)}</Table.Cell>
                                       <Table.Cell textAlign='center'>
                                          
                                       <Button

@@ -1,35 +1,53 @@
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import InputMask from 'react-input-mask';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import { ENDERECO_API } from "../ultil/Constantes";
 
-class FormComprador extends React.Component{
-	state = {
+export default function FormComprador() {
 
-		nome: null,
-		enderecoComercial: null,
-		enderecoResidencial: null,
-		comissao: null,
-        trabalhoHomeOffice: true,
-		qtdComprasMediasMes: null,
-        contratadoEm: null
-	}
+	const { state } = useLocation();
+
+	const [idComprador, setIdComprador] = useState();
+	const [nome, setNome] = useState();
+	const [enderecoComercial, setEnderecoComercial] = useState();
+	const [enderecoResidencial, setEnderecoResidencial] = useState();
+	const [comissao, setComissao] = useState();
+	const [trabalhoHomeOffice, setTrabalhoHomeOffice] = useState();
+	const [qtdComprasMediasMes, setQtdComprasMediasMes] = useState();
+	const [contratadoEm, setContratadoEm] = useState();
+	useEffect(() => {
+
+		if (state != null && state.id != null) {
+			
+			axios.get(ENDERECO_API + "api/comprador/" + state.id)
+			.then((response) => {
+				setIdComprador(response.data.id)
+				setNome(response.data.nome)
+				setEnderecoComercial(response.data.enderecoComercial)
+				setContratadoEm(formatarData(response.data.contradatoEm))
+				setEnderecoResidencial(response.data.enderecoResidencial)
+				setComissao(response.data.comissao)
+				setTrabalhoHomeOffice(response.data.trabalhoHomeOffice)
+				setQtdComprasMediasMes(response.data.qtdComprasMediasMes)
+				})
+			}
+		}, [state])
 	
 
 
-	salvar = () => {
+	function salvar() {
 
 		let compradorRequest = {
 
-			nome: this.state.nome,
-			enderecoComercial: this.state.enderecoComercial,
-			enderecoResidencial: this.state.enderecoResidencial,
-			comissao: this.state.comissao,
-			trabalhoHomeOffice: this.state.trabalhoHomeOffice,
-            qtdComprasMediasMes: this.state.qtdComprasMediasMes,
-            contratadoEm: this.state.contratadoEm
+			nome: nome,
+			enderecoComercial: enderecoComercial,
+			enderecoResidencial: enderecoResidencial,
+			comissao: comissao,
+			trabalhoHomeOffice: trabalhoHomeOffice,
+            qtdComprasMediasMes: qtdComprasMediasMes,
+            contratadoEm: contratadoEm
 		}
 	
 		axios.post(ENDERECO_API + "api/comprador", compradorRequest)
@@ -40,9 +58,20 @@ class FormComprador extends React.Component{
 			console.log('Erro ao incluir o um comprador.')
 		})
 	}
+	function formatarData  (dataParam)  {
+ 
+		if (dataParam == null || dataParam == '') {
+            return ''
+        }
+        
+        let dia = dataParam.substr(8,2);
+        let mes = dataParam.substr(5,2);
+        let ano = dataParam.substr(0,4);
+        let dataFormatada = dia + '/' + mes + '/' + ano;
 
+        return dataFormatada
+    }
 
-    render(){
         return(
             <div>
 
@@ -66,23 +95,23 @@ class FormComprador extends React.Component{
 										label='Nome'
                                         width={16}
 										maxLength="50"
-										value={this.state.nome}
-										onChange={e => this.setState({nome: e.target.value})}
+										value={nome}
+										onChange={e => setNome(e.target.value)}
 									/>
 
 									<Form.Input
 										fluid
                                         width={8}
 										label='Valor de comissão'
-                                        value={this.state.comissao}
-										onChange={e => this.setState({comissao: e.target.value})}/> 
+                                        value={comissao}
+										onChange={e => setComissao(e.target.value)}/> 
                                         
                                     <Form.Input
 										fluid
                                         width={8}
 										label='QTD Compras em Média no mês'
-                                        value={this.state.qtdComprasMediasMes}
-										onChange={e => this.setState({qtdComprasMediasMes: e.target.value})}/> 
+                                        value={qtdComprasMediasMes}
+										onChange={e => setQtdComprasMediasMes(e.target.value)}/> 
 
                                     <Form.Input
                                         fluid
@@ -93,8 +122,9 @@ class FormComprador extends React.Component{
                                             mask="99/99/9999" 
                                             maskChar={null}
                                             placeholder="Ex: 20/03/1985"
-											value={this.state.contratadoEm}
-											onChange={e => this.setState({contratadoEm: e.target.value})}></InputMask>
+											value={contratadoEm}
+											onChange={e => setContratadoEm(e.target.value)}>
+											</InputMask>
                                     </Form.Input>
 									
 
@@ -107,7 +137,7 @@ class FormComprador extends React.Component{
 										label='Endereço Residencial'
                                         width={16}
 										value={this.state.enderecoResidencial}
-										onChange={e => this.setState({enderecoResidencial: e.target.value})}/>
+										onChange={e => setEnderecoComercial(e.target.value)}/>
 								</Form.Group>
 
                                 <Form.Group>
@@ -116,8 +146,8 @@ class FormComprador extends React.Component{
 										fluid
 										label='Endereço Comercial'
                                         width={16}
-										value={this.state.enderecoComercial}
-										onChange={e => this.setState({enderecoComercial: e.target.value})}/>
+										value={enderecoComercial}
+										onChange={e => setEnderecoComercial( e.target.value)}/>
 									
 
 								</Form.Group>
@@ -130,8 +160,8 @@ class FormComprador extends React.Component{
 									label="Trabalha em Home Office:"
 								
 								>			
-									<fieldset value={this.state.trabalhoHomeOffice}
-									onChange={e => this.setState({trabalhoHomeOffice: e.target.value})}	>
+									<fieldset value={trabalhoHomeOffice}
+									onChange={e => setTrabalhoHomeOffice(e.target.value)}	>
 									<input type="radio" name = "sn" value={true} /><label>Sim</label>
 									<input type="radio" name = "sn" value={false} /><label>Não</label>
 									</fieldset>
@@ -148,7 +178,7 @@ class FormComprador extends React.Component{
 										icon
 										labelPosition='left'
 										color='orange'
-										onClick={this.listar}
+										
 										>
 										<Icon name='reply' />
 										<Link to={'/list-comprador'}>Voltar</Link>
@@ -164,7 +194,7 @@ class FormComprador extends React.Component{
 											labelPosition='left'
 											color='blue'
 											floated='right'
-											onClick={this.salvar}
+											onClick={() => salvar()}
 											
 										>
 											<Icon name='save' />
@@ -182,6 +212,3 @@ class FormComprador extends React.Component{
 			</div>
 		)
 	}
-}
-
-export default FormComprador;

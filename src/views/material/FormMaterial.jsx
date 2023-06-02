@@ -5,7 +5,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
 import { ENDERECO_API } from "../ultil/Constantes";
 
-export default function FormMaterial() {
+export default function FormMaterial () {
 	
 	const { state } = useLocation();
 
@@ -85,8 +85,12 @@ export default function FormMaterial() {
 
                     <Container textAlign='justified' >
 
-                        <h2> <span style={{color: 'darkgray'}}> Material &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro </h2>
-
+					{ idMaterial === undefined &&
+						<h2> <span style={{color: 'darkgray'}}> Material &nbsp;<Icon name='angle double right' size="small" /> </span> Cadastro</h2>
+					}
+						{ idMaterial != undefined &&
+						<h2> <span style={{color: 'darkgray'}}> Material &nbsp;<Icon name='angle double right' size="small" /> </span> Alteração</h2>
+					}
                         <Divider />
 
 						<div style={{marginTop: '4%'}}>
@@ -131,7 +135,7 @@ export default function FormMaterial() {
 										value={localizacao}
 										onChange={e =>setLocalizacao(e.target.value)}/> 
 
-<Form.Input
+									<Form.Input
 										fluid
 										label='Peso'
 										width={4}
@@ -150,7 +154,7 @@ export default function FormMaterial() {
                                             maskChar={null}
                                             placeholder="Ex: 20/03/1985"
 											value={dataAquisicao}
-											onChange={e => setDataAquisicao({dataAquisicao: e.target.value})}
+											onChange={e => setDataAquisicao(e.target.value)}
                                         /> 
                                     </Form.Input>
 
@@ -158,7 +162,7 @@ export default function FormMaterial() {
 
 								<Form.Group widths='equal' style={{marginTop: '4%'}}  className='form--empresa-salvar'>
 
-								<Button
+									<Button
 										type="button"
 										inverted
 										circular
