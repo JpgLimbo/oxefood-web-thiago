@@ -139,7 +139,7 @@ export default function FormMaterial () {
 										fluid
 										label='Peso'
 										width={4}
-										value={this.state.peso}
+										value={peso}
 										onChange={e => setPeso(e.target.value)}/> 
 										
 										

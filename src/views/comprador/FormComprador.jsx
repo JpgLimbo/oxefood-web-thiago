@@ -49,14 +49,18 @@ export default function FormComprador() {
             qtdComprasMediasMes: qtdComprasMediasMes,
             contratadoEm: contratadoEm
 		}
-	
-		axios.post(ENDERECO_API + "api/comprador", compradorRequest)
-		.then((response) => {
-			console.log('Comprador cadastrado com sucesso.')
-		})
-		.catch((error) => {
-			console.log('Erro ao incluir o um comprador.')
-		})
+		if (idComprador != null) { //Alteração:
+
+			axios.put(ENDERECO_API + "api/comprador/" + idComprador, compradorRequest)
+			.then((response) => { console.log('Comprador alterado com sucesso.') })
+			.catch((error) => { console.log('Erro ao alter um comprador.') })
+
+		} else { //Cadastro:
+
+			axios.post(ENDERECO_API + "api/comprador", compradorRequest)
+			.then((response) => { console.log('Comprador cadastrado com sucesso.') })
+			.catch((error) => { console.log('Erro ao incluir o comprador.') })
+		}
 	}
 	function formatarData  (dataParam)  {
  
@@ -136,7 +140,7 @@ export default function FormComprador() {
 										fluid
 										label='Endereço Residencial'
                                         width={16}
-										value={this.state.enderecoResidencial}
+										value={enderecoResidencial}
 										onChange={e => setEnderecoComercial(e.target.value)}/>
 								</Form.Group>
 

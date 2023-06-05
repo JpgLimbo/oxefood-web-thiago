@@ -119,7 +119,7 @@ class ListComprador extends React.Component{
                      
                         <Table.Body>
 
-                            { this.state.listaComprador.map(comprador => (
+                            { this.state.listaCompradores.map(comprador => (
 
                                 <Table.Row>
                                      <Table.Cell>{comprador.nome}</Table.Cell>
