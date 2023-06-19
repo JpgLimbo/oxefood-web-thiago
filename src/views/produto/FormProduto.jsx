@@ -16,6 +16,9 @@ export default function FormProduto() {
 	const [valorUnitario, setValorUnitario] = useState();
 	const [tempoEntregaMinimo, setTempoEntregaMinimo] = useState();
 	const [tempoEntregaMaximo, setTempoEntregaMaximo] = useState();
+	const [listaCategoria, setListaCategoria] = useState([]);
+   const [idCategoria, setIdCategoria] = useState();
+
 
 	useEffect(() => {
 
@@ -30,14 +33,20 @@ export default function FormProduto() {
 				setValorUnitario(response.data.valorUnitario)
 				setTempoEntregaMinimo(response.data.tempoEntregaMinimo)
 				setTempoEntregaMaximo(response.data.tempoEntregaMaximo)
+				setIdCategoria(response.data.categoria.id)
 			})
-		}
-			}, [state])
+		}axios.get(ENDERECO_API + "api/produto")
+		.then((response) => {
+			const dropDownCategorias = response.data.map(c => ({ text: c.descricao, value: c.id }));
+			setListaCategoria(dropDownCategorias);
+		})
+ 			}, [state])
 
 	function salvar()  {
 
 		let produtoRequest = {
 
+				idCategoria: idCategoria,
 				codigo: codigo,
 				titulo: titulo,
 				descricao: descricao,
@@ -84,6 +93,19 @@ export default function FormProduto() {
 							<Form>
 
 								<Form.Group widths='equal'>
+
+								<Form.Select
+									required
+									fluid
+									tabIndex='3'
+									placeholder='Selecione'
+									label='Categoria'
+									options={listaCategoria}
+									value={idCategoria}
+									onChange={(e,{value}) => {
+										setIdCategoria(value)
+									}}
+								/>
 
 									<Form.Input
 										required

@@ -100,6 +100,7 @@ render(){
                               <Table.Row>
                                   <Table.HeaderCell>Titulo</Table.HeaderCell>
                                   <Table.HeaderCell>Codigo</Table.HeaderCell>
+                                  <Table.HeaderCell>Categoria</Table.HeaderCell>
                                   <Table.HeaderCell>Descricao</Table.HeaderCell>
                                   <Table.HeaderCell>Valor unitario</Table.HeaderCell>
                                   <Table.HeaderCell>Tempo minimo</Table.HeaderCell>
@@ -115,6 +116,7 @@ render(){
                                   <Table.Row>
                                       <Table.Cell>{produto.titulo}</Table.Cell>
                                       <Table.Cell>{produto.codigo}</Table.Cell>
+                                      <Table.Cell>{produto.categoria.descricao}</Table.Cell>
                                       <Table.Cell>{produto.descricao}</Table.Cell>
                                       <Table.Cell>{produto.valorUnitario}</Table.Cell>
                                       <Table.Cell>{produto.tempoEntregaMinimo}</Table.Cell>
