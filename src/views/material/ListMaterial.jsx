@@ -2,7 +2,7 @@ import axios from 'axios';
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, Divider, Header, Icon, Modal, Table } from 'semantic-ui-react';
-import { ENDERECO_API } from '../ultil/Constantes';
+import { ENDERECO_API } from '../util/Constantes';
 
 class ListMaterial extends React.Component{
 

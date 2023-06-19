@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import InputMask from 'react-input-mask';
 import { Link, useLocation } from "react-router-dom";
 import { Button, Container, Divider, Form, Icon } from 'semantic-ui-react';
-import { ENDERECO_API } from "../ultil/Constantes";
+import { ENDERECO_API } from "../util/Constantes";
 
 
 
